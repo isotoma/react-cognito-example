@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { withRouter } from 'react-router';
 import { registerUser } from 'react-cognito';
 
 class RegisterForm extends React.Component {
@@ -13,8 +14,12 @@ class RegisterForm extends React.Component {
     };
   }
 
+  static propTypes = {
+    history: PropTypes.object.isRequired,
+  }
+
   onSubmit = (event) => {
-    const { store, router } = this.context;
+    const { store } = this.context;
     const state = store.getState();
     const userPool = state.cognito.userPool;
     const config = state.cognito.config;
@@ -24,7 +29,7 @@ class RegisterForm extends React.Component {
     }).then(
       (action) => {
         store.dispatch(action);
-        router.push('/');
+        this.props.history.push('/');
       },
       error => this.setState({ error }));
   }
@@ -62,8 +67,7 @@ class RegisterForm extends React.Component {
 }
 RegisterForm.contextTypes = {
   store: PropTypes.object,
-  router: PropTypes.object,
 };
 
-export default RegisterForm;
+export default withRouter(RegisterForm);
 
