@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
@@ -104,7 +105,7 @@ const BaseDashboard = ({ state, user, attributes }) => {
     case CognitoState.LOGGING_IN:
       return (
         <div>
-          <img src="ajax-loader.gif" />
+          <img src="ajax-loader.gif" alt="" />
         </div>
         )
     case CognitoState.LOGGED_OUT:
